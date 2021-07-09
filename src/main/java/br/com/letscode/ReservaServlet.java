@@ -130,7 +130,7 @@ public class ReservaServlet extends HttpServlet {
             resposta = erroMessage(response);
         }else{
             Reserva reserva = gson.fromJson(conteudo.toString(),Reserva.class);
-            resposta = gson.toJson(reservaService.refazerReserva(reserva));
+            resposta = gson.toJson(reservaService.refazerReserva(reserva,identificador));
             request.getSession().setAttribute(RERVAS_SESSION,reservaService.listAll());
         }
 
@@ -149,8 +149,9 @@ public class ReservaServlet extends HttpServlet {
             reservaService.cancelarReserva(identificador);
             resposta = gson.toJson(new CustomMessage(204, "cliente removido"));
             request.getSession().setAttribute(RERVAS_SESSION, reservaService.listAll());
-
         }
+        printWriter.write(resposta);
+        printWriter.close();
     }
 
     private String erroMessage(HttpServletResponse response) {

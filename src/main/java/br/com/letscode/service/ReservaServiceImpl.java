@@ -23,11 +23,11 @@ public class ReservaServiceImpl implements ReservaService{
     }
 
     @Override
-    public Reserva refazerReserva(Reserva reserva) throws IOException {
+    public Reserva refazerReserva(Reserva reserva,String cpf) throws IOException {
         if(reservaDAO.findByHours(reserva.getHora()).isPresent()){
             throw new ReservaJaExisteException("Ja existe uma reserva neste horario");
         }
-        if(reservaDAO.findByCpf(reserva.getCpf()).isEmpty()){
+        if(reservaDAO.findByCpf(cpf).isEmpty()){
             throw new ReservaJaExisteException("Não existe uma reserva com este cpf");
         }
         return reservaDAO.alterarArquivo(reserva, reserva.getCpf());

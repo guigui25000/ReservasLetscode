@@ -18,5 +18,5 @@ public interface ReservaDAO {
 
     void removerItemArquivo(String identificador) throws IOException;
 
-    Optional<Reserva> findByHours(int hora) throws IOException;
+    Optional<Reserva> findByHours(String hora) throws IOException;
 }

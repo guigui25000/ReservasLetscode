@@ -98,22 +98,23 @@ public class ReservaDAOImpl implements ReservaDAO{
     }
 
     @Override
-    public Optional<Reserva> findByHours(int hora) throws IOException {
+    public Optional<Reserva> findByHours(String hora) throws IOException {
         //TODO testar se funciona :)
         List<Reserva> reservas = getAll();
-        return reservas.stream().filter(reserva -> reserva.getHora()==(hora)).findFirst();
+        return reservas.stream().filter(reserva -> reserva.getHora().equals(hora)).findFirst();
     }
 
     private String format(Reserva reserva){
-        return String.format("%s;%s;%d;%d \r\n",reserva.getCpf(),reserva.getNome(), reserva.getHora(),reserva.getNumeroPessoas());
+        return String.format("%s;%s;%s;%s \r\n",reserva.getCpf(),reserva.getNome(), reserva.getHora(),reserva.getNumeroPessoas());
     }
 
     private Reserva convert(String linha){
         StringTokenizer token = new StringTokenizer(linha,";");
         Reserva reserva = new Reserva();
         reserva.setCpf(token.nextToken());
-        reserva.setHora(Integer.parseInt(token.nextToken()));
-        reserva.setNumeroPessoas(Integer.parseInt(token.nextToken()));
+        reserva.setNome(token.nextToken());
+        reserva.setHora(token.nextToken());
+        reserva.setNumeroPessoas(token.nextToken());
         return reserva;
     }
 
